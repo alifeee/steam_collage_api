@@ -120,7 +120,7 @@ while n*m < num_images:
 
 ## The size of the large image and the size of each thumbnail
 master_size = (n*184, m*69)
-master_image = Image.new('RGB', master_size)
+master_image = Image.new('RGBA', master_size)
 thumb_box = (0, 0, 184, 69)
 
 ## Copy and paste each small image onto the large image
