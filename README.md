@@ -3,12 +3,16 @@ Makes a collage image out of your steam games using python.
 
 Example: https://i.imgur.com/5lSq8jF.jpg 
 
-Python modules required:
+## CLI
 
--requests
+### Use venv
 
--bs4
+```bash
+python3 -m venv env
+```
 
--re
+### Run tests
 
--PIL
+```bash
+ptw
+```
