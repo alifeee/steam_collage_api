@@ -35,3 +35,7 @@ def getGamesFromID(user: str, sort: str = "playtime"):
     url = _getProfileUrl(user, sort)
     html = _getHTML(url)
     return _getGamesFromHTML(html)
+
+def _getGameImageURL(id: str):
+    url = "https://store.steampowered.com/api/appdetails?appids="+id
+    
