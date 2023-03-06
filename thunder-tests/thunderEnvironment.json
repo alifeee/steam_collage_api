@@ -1,0 +1,33 @@
+[
+  {
+    "_id": "15dd322e-ace9-444c-90d7-d5bd2531d04e",
+    "name": "steam",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-03-06T16:44:14.097Z",
+    "modified": "2023-03-06T16:44:14.097Z",
+    "data": [
+      {
+        "name": "alfie",
+        "value": "76561198060139793"
+      },
+      {
+        "name": "james",
+        "value": "76561198029844281"
+      },
+      {
+        "name": "rob",
+        "value": "76561198065864098"
+      },
+      {
+        "name": "private",
+        "value": "76561198039053930"
+      },
+      {
+        "name": "gmod",
+        "value": "4000"
+      }
+    ],
+    "envFile": "..\\.env"
+  }
+]

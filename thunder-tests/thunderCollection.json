@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "b5e1bc07-f3f0-4e48-9fba-7c369a4f8d05",
+    "colName": "steam",
+    "created": "2023-03-06T16:44:33.753Z",
+    "sortNum": 20000,
+    "folders": [],
+    "settings": {
+      "headers": [],
+      "tests": [],
+      "envId": "15dd322e-ace9-444c-90d7-d5bd2531d04e"
+    }
+  }
+]
