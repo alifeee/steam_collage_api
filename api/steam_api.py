@@ -89,3 +89,15 @@ def getGamesFromSteamId(steam_id: str):
     if "game_count" not in response:
         raise Exception(f"No game_count in response: {response}")
     return response["games"], response["game_count"]
+
+
+def getImageUrlForGameId(game_id: int):
+    """Get image url for game id
+
+    Args:
+        game_id (int): Game id
+
+    Returns:
+        str: Image url
+    """
+    return f"https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
