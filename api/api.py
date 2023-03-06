@@ -1,7 +1,9 @@
 # Web api using Flask, to return simple data
-from flask import Flask, request
-from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId, getImageUrlForGameId
+from flask import Flask, request, send_file
+from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId
+from images import makeCollage, serve_pil_image
 from markupsafe import escape
+# import stringIO
 
 app = Flask(__name__)
 
@@ -25,13 +27,9 @@ def get():
         games, game_count = getGamesFromSteamId(API_KEY, profile_id)
     except Exception as e:
         return f"Error: {e}", 500
-    for game in games:
-        game["img_icon_url"] = getImageUrlForGameId(game["appid"])
 
-    return {
-        "games": games,
-        "game_count": game_count
-    }
+    collage = makeCollage(games, (200, 100))
+    return serve_pil_image(collage)
 
 
 if __name__ == '__main__':
