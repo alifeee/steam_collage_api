@@ -3,3 +3,4 @@ env/*
 __pycache__/*
 cache/*
 images/
+api_key.txt
