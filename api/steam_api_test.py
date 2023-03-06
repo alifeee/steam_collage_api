@@ -19,19 +19,19 @@ class TestIsVanityUrl(unittest.TestCase):
         self.assertFalse(steam_api.isVanityUrl("76561198099426919"))
 
 
-baseurl = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/"
-baseparams = {
-    "key": API_KEY,
-}
-
-
 class TestGet64BitFromVanityUrl(unittest.TestCase):
+    def setUp(self):
+        self.baseurl = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/"
+        self.baseparams = {
+            "key": API_KEY,
+        }
+
     @responses.activate
     def test_get64BitFromVanityUrl(self):
-        params = baseparams.copy()
+        params = self.baseparams.copy()
         params["vanityurl"] = "alifeee"
         responses.get(
-            baseurl,
+            self.baseurl,
             match=[matchers.query_param_matcher(params)],
             json={
                 "response": {
@@ -44,10 +44,10 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
 
     @responses.activate
     def test_nonExistentUrl(self):
-        params = baseparams.copy()
+        params = self.baseparams.copy()
         params["vanityurl"] = "alifeee"
         responses.get(
-            baseurl,
+            self.baseurl,
             match=[matchers.query_param_matcher(params)],
             json={
                 "response": {
@@ -60,12 +60,10 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
 
     @responses.activate
     def test_emptyQuery(self):
-        params = baseparams.copy()
+        params = self.baseparams.copy()
         params["vanityurl"] = ""
-        # returns <html><head><title>Bad Request</title></head><body><h1>Bad Request</h1>Required
-        # parameter 'vanityurl' is missing</body></html>
         responses.get(
-            baseurl,
+            self.baseurl,
             match=[matchers.query_param_matcher(params)],
             status=400)
         self.assertRaises(
