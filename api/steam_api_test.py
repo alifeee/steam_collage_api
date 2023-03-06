@@ -4,8 +4,7 @@ import responses
 # requests mocking: https://github.com/getsentry/responses
 from responses import matchers
 
-with open("api_key.txt", "r") as f:
-    API_KEY = f.read()
+API_KEY = "123456789"
 
 
 class TestIsVanityUrl(unittest.TestCase):
@@ -39,8 +38,8 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
                     "steamid": "76561008099426919"
                 }
             })
-        self.assertEqual(steam_api.get64BitFromVanityUrl(
-            "alifeee"), "76561008099426919")
+        profile_id = steam_api.get64BitFromVanityUrl(API_KEY, "alifeee")
+        self.assertEqual(profile_id, "76561008099426919")
 
     @responses.activate
     def test_nonExistentUrl(self):
@@ -55,19 +54,20 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
                     "message": "No match"
                 }
             })
-        self.assertRaises(
-            ValueError, steam_api.get64BitFromVanityUrl, "alifeee")
+        with self.assertRaises(ValueError):
+            steam_api.get64BitFromVanityUrl(API_KEY, "alifeee")
 
     @responses.activate
     def test_emptyQuery(self):
+        self.skipTest("Empty query is not inserted into request by requests")
         params = self.baseparams.copy()
         params["vanityurl"] = ""
         responses.get(
             self.baseurl,
             match=[matchers.query_param_matcher(params)],
             status=400)
-        self.assertRaises(
-            Exception, steam_api.get64BitFromVanityUrl, "")
+        with self.assertRaises(ValueError):
+            steam_api.get64BitFromVanityUrl(API_KEY, "")
 
 
 class TestGetGamesFromSteamId(unittest.TestCase):
@@ -115,7 +115,8 @@ class TestGetGamesFromSteamId(unittest.TestCase):
                     "games": self.games
                 }
             })
-        games, game_count = steam_api.getGamesFromSteamId("76561008099426919")
+        games, game_count = steam_api.getGamesFromSteamId(
+            API_KEY, "76561008099426919")
         self.assertEqual(games, self.games)
         self.assertEqual(game_count, 2)
 
@@ -127,8 +128,8 @@ class TestGetGamesFromSteamId(unittest.TestCase):
             self.baseurl,
             match=[matchers.query_param_matcher(params)],
             status=500)
-        self.assertRaises(
-            Exception, steam_api.getGamesFromSteamId, "")
+        with self.assertRaises(ValueError):
+            steam_api.getGamesFromSteamId(API_KEY, "")
 
     @responses.activate
     def test_invalidSteamId(self):
@@ -138,8 +139,10 @@ class TestGetGamesFromSteamId(unittest.TestCase):
             self.baseurl,
             match=[matchers.query_param_matcher(params)],
             status=500)
-        self.assertRaises(
-            Exception, steam_api.getGamesFromSteamId, "invalid")
+        with self.assertRaises(ValueError) as e:
+            steam_api.getGamesFromSteamId(API_KEY, "invalid")
+        self.assertEqual(str(
+            e.exception), f"steam_id is a vanity url: {params['steamid']}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id")
 
 
 class TestGetImageUrlForGameId(unittest.TestCase):

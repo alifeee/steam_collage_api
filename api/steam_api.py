@@ -1,9 +1,6 @@
 import re
 import requests
 
-with open("api_key.txt", "r") as f:
-    API_KEY = f.read()
-
 
 def isVanityUrl(profile_string: str):
     """Check if profile string is a vanity url
@@ -17,10 +14,11 @@ def isVanityUrl(profile_string: str):
     return re.match(r'^[0-9]{17}$', profile_string) is None
 
 
-def get64BitFromVanityUrl(vanity_url: str):
+def get64BitFromVanityUrl(API_KEY: str, vanity_url: str):
     """Get 64 bit steam id from vanity url
 
     Args:
+        API_KEY (str): Steam API key
         vanity_url (str): Vanity url extension, e.g. "alifeee"
 
     Raises:
@@ -38,19 +36,20 @@ def get64BitFromVanityUrl(vanity_url: str):
     r = requests.get(url, params=params)
     json = r.json()
     if "response" not in json:
-        raise Exception(f"No response in json: {json}")
+        raise ValueError(f"No response in json: {json}")
     response = json["response"]
     if "success" in response and response["success"] != 1:
         raise ValueError(f"Vanity url conversion failed.")
     if "steamid" not in response:
-        raise Exception(f"No steamid in response: {response}")
+        raise ValueError(f"No steamid in response: {response}")
     return response["steamid"]
 
 
-def getGamesFromSteamId(steam_id: str):
+def getGamesFromSteamId(API_KEY: str, steam_id: str):
     """Get list of games from steam id
 
     Args:
+        API_KEY (str): Steam API key
         steam_id (str): 64 bit steam id
 
     Raises:
@@ -72,7 +71,7 @@ def getGamesFromSteamId(steam_id: str):
         int: Number of games
     """
     if isVanityUrl(steam_id):
-        raise Exception(
+        raise ValueError(
             f"steam_id is a vanity url: {steam_id}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id")
     url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
     params = {
@@ -85,12 +84,12 @@ def getGamesFromSteamId(steam_id: str):
     r = requests.get(url, params=params)
     json = r.json()
     if "response" not in json:
-        raise Exception(f"No response in json: {json}")
+        raise ValueError(f"No response in json: {json}")
     response = json["response"]
     if "games" not in response:
-        raise Exception(f"No games in response: {response}")
+        raise ValueError(f"No games in response: {response}")
     if "game_count" not in response:
-        raise Exception(f"No game_count in response: {response}")
+        raise ValueError(f"No game_count in response: {response}")
     return response["games"], response["game_count"]
 
 
