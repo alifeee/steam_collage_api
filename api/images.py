@@ -51,12 +51,11 @@ def getImageForGameId(game_id: int):
         return img
 
 
-def makeCollage(games, aspect_ratio=1, max_images=-1):
-    if max_images == -1:
-        max_images = len(games)
+def makeCollage(games, image_size):
+    max_images = image_size[0] * image_size[1]
     images = []
     extra = 0
-    for (index, game) in tqdm(enumerate(games), desc="Downloading images", total=max_images, unit="images"):
+    for (index, game) in tqdm(enumerate(games), total=max_images):
         if index >= max_images + extra:
             break
         try:
@@ -67,20 +66,16 @@ def makeCollage(games, aspect_ratio=1, max_images=-1):
 
     THUMB_WIDTH = 460
     THUMB_HEIGHT = 215
-    # find how many rows and columns we need
-    num_images = len(images)
-    num_cols = int(num_images ** 0.5)
-    num_rows = int(num_images / num_cols)
-    if num_rows * num_cols < num_images:
-        num_rows += 1
-    # create a new image with the right size
-    collage_width = num_cols * THUMB_WIDTH
-    collage_height = num_rows * THUMB_HEIGHT
+
+    total_columnolumns = image_size[0]
+    total_rows = image_size[1]
+    collage_width = total_columnolumns * THUMB_WIDTH
+    collage_height = total_rows * THUMB_HEIGHT
+
     collage = Image.new("RGB", (collage_width, collage_height))
-    # paste the images into the right position
     for i, image in enumerate(images):
-        row = i // num_cols
-        col = i % num_cols
+        row = i // total_columnolumns
+        col = i % total_columnolumns
         x = col * THUMB_WIDTH
         y = row * THUMB_HEIGHT
         collage.paste(image, (x, y))
