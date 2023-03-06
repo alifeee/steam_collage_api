@@ -31,6 +31,9 @@ def getImageForGameId(game_id: int):
     Args:
         game_id (int): Game id
 
+    Raises:
+        ValueError: If image URL cannot be opened
+
     Returns:
         Image: Image (PIL)
     """
@@ -43,10 +46,7 @@ def getImageForGameId(game_id: int):
         try:
             img = Image.open(BytesIO(response.content))
         except:
-            print("Error opening image for game id: " + str(game_id))
-            img = Image.new("RGB", (460, 215))
-            img_draw = ImageDraw.Draw(img)
-            img_draw.text((0, 0), "Error", fill=(255, 255, 255))
+            raise ValueError(f"Error opening image for game id: {game_id}")
         img.save(img_path)
         return img
 
@@ -55,8 +55,16 @@ def makeCollage(games, aspect_ratio=1, max_images=-1):
     if max_images == -1:
         max_images = len(games)
     images = []
-    for game in tqdm(games[:max_images], desc="Downloading images", total=max_images, unit="images"):
-        images.append(getImageForGameId(game["appid"]))
+    extra = 0
+    for (index, game) in tqdm(enumerate(games), desc="Downloading images", total=max_images, unit="images"):
+        if index >= max_images + extra:
+            break
+        try:
+            images.append(getImageForGameId(game["appid"]))
+        except:
+            print(f"Error getting image for game: {game['name']}")
+            extra += 1
+
     THUMB_WIDTH = 460
     THUMB_HEIGHT = 215
     # find how many rows and columns we need
