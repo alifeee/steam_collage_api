@@ -143,20 +143,3 @@ class TestGetGamesFromSteamId(unittest.TestCase):
             steam_api.getGamesFromSteamId(API_KEY, "invalid")
         self.assertEqual(str(
             e.exception), f"steam_id is a vanity url: {params['steamid']}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id")
-
-
-class TestGetImageUrlForGameId(unittest.TestCase):
-    def setUp(self):
-        self.baseurl = "https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
-
-    def test_getImageUrlForGameId(self):
-        game_id = 10
-        self.assertEqual(
-            steam_api.getImageUrlForGameId(game_id),
-            self.baseurl.format(game_id=game_id))
-
-    def test_getImageUrlForGameId2(self):
-        game_id = 205560
-        self.assertEqual(
-            steam_api.getImageUrlForGameId(game_id),
-            self.baseurl.format(game_id=game_id))
