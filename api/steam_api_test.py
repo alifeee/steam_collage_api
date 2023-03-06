@@ -1,6 +1,7 @@
 import steam_api
 import unittest
 import responses
+# requests mocking: https://github.com/getsentry/responses
 from responses import matchers
 
 with open("api_key.txt", "r") as f:
