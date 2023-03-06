@@ -15,6 +15,7 @@ with open("api_key.txt", "r") as f:
 @app.route('/steamcollage')
 def get():
     profile_string = request.args.get('profile_string')
+    num_games = request.args.get('num_games', default=25, type=int)
     if isVanityUrl(profile_string):
         try:
             profile_id = get64BitFromVanityUrl(API_KEY, profile_string)
@@ -28,7 +29,7 @@ def get():
     except Exception as e:
         return f"Error: {e}", 500
 
-    collage = makeCollage(games, (200, 100))
+    collage = makeCollage(games, (200, 100), num_games)
     return serve_pil_image(collage)
 
 
