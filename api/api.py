@@ -31,6 +31,14 @@ def get():
     except Exception as e:
         return f"Error: {e}", 500
 
+    if sort == "playtime":
+        games.sort(key=lambda x: x["playtime_forever"], reverse=True)
+    elif sort == "name":
+        games.sort(key=lambda x: x["name"])
+    elif sort == "recent":
+        games.sort(key=lambda x: x["rtime_last_played"], reverse=True)
+    else:
+        return f"Error: Invalid sort option: {sort}", 500
 
     collage = makeCollage(games, (columns, rows))
     return serve_pil_image(collage)
