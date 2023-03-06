@@ -1,5 +1,8 @@
 {
   "recommendations": [
-    "rangav.vscode-thunder-client"
+    "rangav.vscode-thunder-client",
+    "ms-python.python",
+    "nautigsam.go-to-test",
+    "njpwerner.autodocstring"
   ]
 }
