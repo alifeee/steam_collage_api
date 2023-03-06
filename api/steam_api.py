@@ -25,6 +25,7 @@ def get64BitFromVanityUrl(vanity_url: str):
 
     Raises:
         Exception: If API response is invalid
+        Exception: If vanity_url is not a valid vanity url
 
     Returns:
         str: 64 bit steam id
@@ -39,6 +40,8 @@ def get64BitFromVanityUrl(vanity_url: str):
     if "response" not in json:
         raise Exception(f"No response in json: {json}")
     response = json["response"]
+    if "success" in response and response["success"] != 1:
+        raise ValueError(f"Vanity url conversion failed.")
     if "steamid" not in response:
         raise Exception(f"No steamid in response: {response}")
     return response["steamid"]

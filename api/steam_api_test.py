@@ -35,8 +35,8 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
             match=[matchers.query_param_matcher(params)],
             json={
                 "response": {
-                    "steamid": "76561008099426919",
-                    "success": 1
+                    "success": 1,
+                    "steamid": "76561008099426919"
                 }
             })
         self.assertEqual(steam_api.get64BitFromVanityUrl(
@@ -56,7 +56,7 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
                 }
             })
         self.assertRaises(
-            Exception, steam_api.get64BitFromVanityUrl, "alifeee")
+            ValueError, steam_api.get64BitFromVanityUrl, "alifeee")
 
     @responses.activate
     def test_emptyQuery(self):
