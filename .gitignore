@@ -4,3 +4,4 @@ env/*
 cache/*
 images/
 api_key.txt
+thunder-tests/thunderActivity.json

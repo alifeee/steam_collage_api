@@ -14,8 +14,8 @@ with open("api_key.txt", "r") as f:
 
 @app.route('/steamcollage/games')
 def get():
-    profile_string = request.args.get('profile_string')
-    columns = request.args.get('columns', default=8, type=int)
+    profile_string = request.args.get('id')
+    columns = request.args.get('cols', default=8, type=int)
     rows = request.args.get('rows', default=9, type=int)
     sort = request.args.get('sort', default="playtime", type=str)
     if isVanityUrl(profile_string):
