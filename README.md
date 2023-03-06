@@ -16,3 +16,15 @@ python3 -m venv env
 ```bash
 ptw
 ```
+
+### Save modules to requirements.txt
+
+```bash
+pip freeze > requirements.txt
+```
+
+### Install modules from requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
