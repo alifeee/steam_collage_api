@@ -42,3 +42,50 @@ def get64BitFromVanityUrl(vanity_url: str):
     if "steamid" not in response:
         raise Exception(f"No steamid in response: {response}")
     return response["steamid"]
+
+
+def getGamesFromSteamId(steam_id: str):
+    """Get list of games from steam id
+
+    Args:
+        steam_id (str): 64 bit steam id
+
+    Raises:
+        Exception: If steam_id is a vanity url
+        Exception: If API response is invalid
+
+    Returns:
+        list: List of games
+          game: {
+            "appid": int,
+            "name": str,
+            "playtime_forever": int,
+            "img_icon_url": str,
+            "playtime_windows_forever": int,
+            "playtime_mac_forever": int,
+            "playtime_linux_forever": int
+            "rtime_last_played": int
+            }
+        int: Number of games
+    """
+    if isVanityUrl(steam_id):
+        raise Exception(
+            f"steam_id is a vanity url: {steam_id}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id")
+    url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
+    params = {
+        "key": API_KEY,
+        "steamid": steam_id,
+        "format": "json",
+        "include_appinfo": "true",
+        "include_played_free_games": "true"
+    }
+    r = requests.get(url, params=params)
+    json = r.json()
+    if "response" not in json:
+        raise Exception(f"No response in json: {json}")
+    response = json["response"]
+    if "games" not in response:
+        raise Exception(f"No games in response: {response}")
+    if "game_count" not in response:
+        raise Exception(f"No game_count in response: {response}")
+    return response["games"], response["game_count"]
