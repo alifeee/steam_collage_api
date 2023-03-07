@@ -14,11 +14,14 @@ games, tot = getGamesFromSteamId(API_KEY, profile_id)
 
 sizes = {}
 for game in tqdm(games, desc="Getting image sizes", total=len(games), unit="images"):
-    image = getImageForGameId(game["appid"])
+    try:
+        image = getImageForGameId(game["appid"])
+    except:
+        continue
     if image.size in sizes:
-        sizes[image.size].append(game["appid"])
+        sizes[image.size].append(game["name"])
     else:
-        sizes[image.size] = [game["appid"]]
+        sizes[image.size] = [game["name"]]
 
 print("Image sizes:")
 for size in sizes:
