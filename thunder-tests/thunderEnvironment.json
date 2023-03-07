@@ -26,6 +26,10 @@
       {
         "name": "gmod",
         "value": "4000"
+      },
+      {
+        "name": "branton",
+        "value": "76561198077096264"
       }
     ],
     "envFile": "..\\.env"
