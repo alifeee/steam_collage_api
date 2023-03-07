@@ -1,8 +1,14 @@
-env/*
-.pytest_cache/*
-**/__pycache__/*
-cache/*
-images/
-api_key.txt
+# python
+env
+.pytest_cache
+**/__pycache__
+
+# thunder client
 thunder-tests/thunderActivity.json
+
+# cache
+cache
+
+# secrets
+api_key.txt
 .env
