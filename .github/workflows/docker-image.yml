@@ -23,4 +23,16 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Docker push
       run: docker push alifeee/steamcollageapi:latest
-      
+    - name: executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: |
+          docker stop steamcollageapi
+          docker rm steamcollageapi
+          docker run -d -p 5000:5000 -e API_KEY=${{ secrets.STEAM_API_KEY }} --name steamcollageapi alifeee/steamcollageapi
+          docker ps -a
+
