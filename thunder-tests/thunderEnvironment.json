@@ -30,6 +30,10 @@
       {
         "name": "branton",
         "value": "76561198077096264"
+      },
+      {
+        "name": "kamatera",
+        "value": "45.91.169.110"
       }
     ],
     "envFile": "..\\.env"
