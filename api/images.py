@@ -55,7 +55,7 @@ def makeCollage(games, image_size):
     max_images = image_size[0] * image_size[1]
     images = []
     extra = 0
-    for (index, game) in tqdm(enumerate(games), total=max(max_images, len(games))):
+    for (index, game) in tqdm(enumerate(games), total=min(max_images, len(games))):
         if index >= max_images + extra:
             break
         try:
