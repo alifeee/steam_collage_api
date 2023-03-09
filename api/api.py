@@ -3,13 +3,19 @@ from flask import Flask, request, send_file
 from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId
 from images import makeCollage, serve_pil_image
 from markupsafe import escape
-# import stringIO
+import os
+from dotenv import load_dotenv
+from waitress import serve
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
+
+
+load_dotenv()
 
 app = Flask(__name__)
 
-
-with open("api_key.txt", "r") as f:
-    API_KEY = f.read()
+API_KEY = os.environ["API_KEY"]
 
 
 @app.route('/steamcollage/games')
@@ -45,4 +51,5 @@ def get():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True, host="0.0.0.0")
+    serve(app, host="0.0.0.0", port=5000)

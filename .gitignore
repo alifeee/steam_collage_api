@@ -10,5 +10,4 @@ thunder-tests/thunderActivity.json
 cache
 
 # secrets
-api_key.txt
 .env

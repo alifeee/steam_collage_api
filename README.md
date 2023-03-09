@@ -50,10 +50,17 @@ pip freeze > requirements.txt
 ptw
 ```
 
-#### Run server
+#### Run server locally
 
 ```bash
 python ./api/api.py
+```
+
+#### Build and run docker image
+
+```bash
+docker build -t steamcollage .
+docker run -p 5000:5000 -e API_KEY=8917981789178 steamcollage
 ```
 
 ### API
