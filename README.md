@@ -66,6 +66,37 @@ docker run -p 5000:5000 -e API_KEY=8917981789178 alifeee/steamcollageapi
 docker push alifeee/steamcollageapi
 ```
 
+## Deploying to Kamatera (remote)
+
+### Connect to Kamatera
+
+```bash
+ssh root@45.91.169.110
+> enter password
+```
+
+### Pull the latest image from Docker Hub
+
+```bash
+docker pull alifeee/steamcollageapi
+```
+
+### Remove existing container
+
+```bash
+docker ps
+> get container id
+docker rm <container id>
+```
+
+### Run image
+
+```bash
+docker create -p 5000:5000 -e API_KEY=8917981789178 alifeee/steamcollageapi
+> get container id
+docker start <container id>
+```
+
 ## API
 
 ### GET `/steamcollage/games`
