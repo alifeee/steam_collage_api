@@ -97,6 +97,12 @@ docker create -p 5000:5000 -e API_KEY=8917981789178 alifeee/steamcollageapi
 docker start <container id>
 ```
 
+## GitHub actions
+
+### RSA key
+
+See [rsa_ssh_key_setup.md](./rsa_ssh_key_setup.md) for details on setting up the RSA key.
+
 ## API
 
 ### GET `/steamcollage/games`
