@@ -31,5 +31,8 @@ jobs:
         key: ${{ secrets.KEY }}
         port: 22
         script: |
-          echo "what"
-          whoami
+          docker stop steamcollageapi
+          docker rm steamcollageapi
+          docker run -d -p 5000:5000 -e API_KEY=${{ secrets.STEAM_API_KEY }} --name steamcollageapi alifeee/steamcollageapi
+          docker ps -a
+
