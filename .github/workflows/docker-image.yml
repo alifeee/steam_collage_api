@@ -23,4 +23,13 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Docker push
       run: docker push alifeee/steamcollageapi:latest
+    - name: Pull from server
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          whoami
+          ls -al
       
