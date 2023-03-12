@@ -34,7 +34,7 @@ jobs:
       run: |
         python ./api/api.py debug &
         sleep 2
-        tc --env test --col tests --stop-on-fail --report html,xml
+        tc --env test --col tests --report html,xml
         kill -9 `lsof -i:5000 -t`
       env:
         API_KEY: ${{ secrets.API_KEY }}
