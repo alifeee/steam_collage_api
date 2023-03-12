@@ -40,6 +40,7 @@ jobs:
         API_KEY: ${{ secrets.API_KEY }}
     - name: Output the run Details
       uses: actions/upload-artifact@v3
+      if: ${{ always() }}
       with:
         name: RunReports
         path: thunder-reports
