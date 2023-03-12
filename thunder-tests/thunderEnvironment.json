@@ -34,6 +34,10 @@
       {
         "name": "kamatera",
         "value": "45.91.169.110"
+      },
+      {
+        "name": "host",
+        "value": "localhost"
       }
     ],
     "envFile": "..\\.env"
