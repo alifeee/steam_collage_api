@@ -25,7 +25,7 @@ def alive():
 
 
 @app.route('/steamcollage/verifyuser')
-def getPrivate():
+def verifyuser():
     profile_string = request.args.get('id')
     if isVanityUrl(profile_string):
         try:
@@ -51,7 +51,7 @@ def getPrivate():
 
 
 @app.route('/steamcollage/games')
-def get():
+def games():
     profile_string = request.args.get('id')
     columns = request.args.get('cols', default=8, type=int)
     rows = request.args.get('rows', default=9, type=int)
