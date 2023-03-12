@@ -33,6 +33,7 @@ jobs:
         script: |
           docker stop steamcollageapi
           docker rm steamcollageapi
+          docker pull alifeee/steamcollageapi
           docker run -d -p 5000:5000 -e API_KEY=${{ secrets.STEAM_API_KEY }} --name steamcollageapi alifeee/steamcollageapi
           docker ps -a
 
