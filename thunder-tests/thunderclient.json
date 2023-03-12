@@ -39,11 +39,11 @@
     "colId": "b5e1bc07-f3f0-4e48-9fba-7c369a4f8d05",
     "containerId": "",
     "name": "Get all games",
-    "url": "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={{API_KEY}}&steamid={{alfie}}&format=json&include_appinfo=true&include_played_free_games=true",
+    "url": "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={{API_KEY}}&steamid=73748374837483743&format=json&include_appinfo=true&include_played_free_games=true",
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-03-06T16:44:33.762Z",
-    "modified": "2023-03-06T16:46:17.510Z",
+    "modified": "2023-03-12T15:25:44.767Z",
     "headers": [],
     "params": [
       {
@@ -53,7 +53,7 @@
       },
       {
         "name": "steamid",
-        "value": "{{alfie}}",
+        "value": "73748374837483743",
         "isPath": false
       },
       {
@@ -104,11 +104,11 @@
     "colId": "b5e1bc07-f3f0-4e48-9fba-7c369a4f8d05",
     "containerId": "",
     "name": "Get vanity url",
-    "url": "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key={{API_KEY}}&vanityurl=alifeee",
+    "url": "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key={{API_KEY}}&vanityurl=jnfjnjfnjenfjenj",
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-03-06T16:44:33.765Z",
-    "modified": "2023-03-06T16:45:26.773Z",
+    "modified": "2023-03-12T15:30:36.538Z",
     "headers": [],
     "params": [
       {
@@ -118,7 +118,7 @@
       },
       {
         "name": "vanityurl",
-        "value": "alifeee",
+        "value": "jnfjnjfnjenfjenj",
         "isPath": false
       }
     ],
@@ -172,17 +172,17 @@
     "_id": "1b49326c-16eb-4a1e-9b94-7f65b1dfe9f7",
     "colId": "b5e1bc07-f3f0-4e48-9fba-7c369a4f8d05",
     "containerId": "",
-    "name": "steamcollage/isLibraryPrivate",
-    "url": "http://{{host}}:5000/steamcollage/isLibraryPrivate?id=james",
+    "name": "steamcollage/verifyuser",
+    "url": "http://{{host}}:5000/steamcollage/verifyuser?id=japanesebirdsmokingapipe",
     "method": "GET",
     "sortNum": 85000,
     "created": "2023-03-12T14:07:43.139Z",
-    "modified": "2023-03-12T15:23:14.738Z",
+    "modified": "2023-03-12T15:36:35.925Z",
     "headers": [],
     "params": [
       {
         "name": "id",
-        "value": "james",
+        "value": "japanesebirdsmokingapipe",
         "isPath": false
       }
     ],

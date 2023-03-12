@@ -24,13 +24,15 @@ def alive():
     return "Alive"
 
 
-@app.route('/steamcollage/isLibraryPrivate')
+@app.route('/steamcollage/verifyuser')
 def getPrivate():
     profile_string = request.args.get('id')
     if isVanityUrl(profile_string):
         try:
             profile_id = get64BitFromVanityUrl(API_KEY, profile_string)
         except Exception as e:
+            if "Vanity url conversion failed" in str(e):
+                return {"exists": False}
             return f"Error: {e}", 500
     else:
         profile_id = profile_string
@@ -38,13 +40,14 @@ def getPrivate():
     try:
         games, game_count = getGamesFromSteamId(API_KEY, profile_id)
     except Exception as e:
-        print(str(e))
+        if "Request failed with status code 500" in str(e):
+            return {"exists": False}
         if "No games in response" in str(e):
-            return {"private": True}
+            return {"exists": True, "private": True}
         else:
             return f"Error: {e}", 500
 
-    return {"private": False}
+    return {"exists": True, "private": False}
 
 
 @app.route('/steamcollage/games')
