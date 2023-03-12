@@ -34,7 +34,12 @@ def get64BitFromVanityUrl(API_KEY: str, vanity_url: str):
         "vanityurl": vanity_url
     }
     r = requests.get(url, params=params)
-    json = r.json()
+    if r.status_code != 200:
+        raise ValueError(f"Request failed with status code {r.status_code}")
+    try:
+        json = r.json()
+    except ValueError:
+        raise ValueError(f"Response is not a valid json: {r.text}")
     if "response" not in json:
         raise ValueError(f"No response in json: {json}")
     response = json["response"]
@@ -82,7 +87,12 @@ def getGamesFromSteamId(API_KEY: str, steam_id: str):
         "include_played_free_games": "true"
     }
     r = requests.get(url, params=params)
-    json = r.json()
+    if r.status_code != 200:
+        raise ValueError(f"Request failed with status code {r.status_code}")
+    try:
+        json = r.json()
+    except ValueError:
+        raise ValueError(f"Response is not a valid json: {r.text}")
     if "response" not in json:
         raise ValueError(f"No response in json: {json}")
     response = json["response"]

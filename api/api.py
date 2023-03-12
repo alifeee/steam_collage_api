@@ -1,9 +1,10 @@
 # Web api using Flask, to return simple data
 from flask import Flask, request, send_file
 from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId
-from images import makeCollage, serve_pil_image
+from images import makeCollage, bytesFromPilImage
 from markupsafe import escape
 import os
+import sys
 from dotenv import load_dotenv
 from waitress import serve
 import logging
@@ -16,6 +17,37 @@ load_dotenv()
 app = Flask(__name__)
 
 API_KEY = os.environ["API_KEY"]
+
+
+@app.route('/steamcollage/alive')
+def alive():
+    return "Alive"
+
+
+@app.route('/steamcollage/verifyuser')
+def getPrivate():
+    profile_string = request.args.get('id')
+    if isVanityUrl(profile_string):
+        try:
+            profile_id = get64BitFromVanityUrl(API_KEY, profile_string)
+        except Exception as e:
+            if "Vanity url conversion failed" in str(e):
+                return {"exists": False}
+            return f"Error: {e}", 500
+    else:
+        profile_id = profile_string
+
+    try:
+        games, game_count = getGamesFromSteamId(API_KEY, profile_id)
+    except Exception as e:
+        if "Request failed with status code 500" in str(e):
+            return {"exists": False}
+        if "No games in response" in str(e):
+            return {"exists": True, "private": True}
+        else:
+            return f"Error: {e}", 500
+
+    return {"exists": True, "private": False}
 
 
 @app.route('/steamcollage/games')
@@ -47,9 +79,12 @@ def get():
         return f"Error: Invalid sort option: {sort}", 500
 
     collage = makeCollage(games, (columns, rows))
-    return serve_pil_image(collage)
+    collage_bytes = bytesFromPilImage(collage)
+    return send_file(collage_bytes, mimetype="image/jpeg")
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, host="0.0.0.0")
-    serve(app, host="0.0.0.0", port=5000)
+    if len(sys.argv) > 1 and sys.argv[1] == "debug":
+        app.run(debug=True, host="0.0.0.0")
+    else:
+        serve(app, host="0.0.0.0", port=5000)
