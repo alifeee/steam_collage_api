@@ -207,11 +207,11 @@
     "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
     "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
     "name": "exists, private",
-    "url": "http://localhost:5000/steamcollage/verifyuser?id=john",
+    "url": "http://{{host}}:5000/steamcollage/verifyuser?id=john",
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-03-12T15:40:14.308Z",
-    "modified": "2023-03-12T15:42:12.559Z",
+    "modified": "2023-03-12T16:04:45.025Z",
     "headers": [],
     "params": [
       {
@@ -234,11 +234,11 @@
     "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
     "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
     "name": "exists, public",
-    "url": "http://localhost:5000/steamcollage/verifyuser?id=alifeee",
+    "url": "http://{{host}}:5000/steamcollage/verifyuser?id=alifeee",
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-03-12T15:42:46.758Z",
-    "modified": "2023-03-12T15:44:22.801Z",
+    "modified": "2023-03-12T16:04:51.009Z",
     "headers": [],
     "params": [
       {
@@ -261,11 +261,11 @@
     "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
     "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
     "name": "does not exist, vanity url",
-    "url": "http://localhost:5000/steamcollage/verifyuser?id=11111111111111111",
+    "url": "http://{{host}}:5000/steamcollage/verifyuser?id=11111111111111111",
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-03-12T15:44:39.487Z",
-    "modified": "2023-03-12T15:45:38.692Z",
+    "modified": "2023-03-12T16:04:56.612Z",
     "headers": [],
     "params": [
       {
@@ -288,11 +288,11 @@
     "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
     "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
     "name": "does not exist, steamID",
-    "url": "http://localhost:5000/steamcollage/verifyuser?id=uahwfuihwaufhuwahifjwahfwa",
+    "url": "http://{{host}}:5000/steamcollage/verifyuser?id=uahwfuihwaufhuwahifjwahfwa",
     "method": "GET",
     "sortNum": 50000,
     "created": "2023-03-12T15:45:24.468Z",
-    "modified": "2023-03-12T15:45:24.468Z",
+    "modified": "2023-03-12T16:05:46.187Z",
     "headers": [],
     "params": [
       {
@@ -315,11 +315,11 @@
     "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
     "containerId": "",
     "name": "alive",
-    "url": "http://localhost:5000/steamcollage/alive",
+    "url": "http://{{host}}:5000/steamcollage/alive",
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-03-12T15:46:12.855Z",
-    "modified": "2023-03-12T15:46:34.055Z",
+    "modified": "2023-03-12T16:06:06.721Z",
     "headers": [],
     "params": [],
     "tests": [
