@@ -47,14 +47,15 @@ def getImageForGameId(game_id: int):
     img_path = CACHE_DIR + str(game_id) + ".jpg"
     if os.path.exists(img_path):
         return Image.open(img_path)
-    else:
-        response = requests.get(url)
-        try:
-            img = Image.open(BytesIO(response.content))
-        except:
-            raise ValueError(f"Error opening image for game id: {game_id}")
-        img.save(img_path)
-        return img
+    response = requests.get(url)
+    try:
+        img_bytes = BytesIO(response.content)
+        img = Image.open(img_bytes)
+    except Exception as e:
+        raise ValueError(
+            f"Error opening image for game id: {game_id}. Error: {e}")
+    img.save(img_path)
+    return img
 
 
 def makeCollage(games, image_size):
