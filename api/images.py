@@ -6,7 +6,6 @@ from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from tqdm import tqdm
 from io import BytesIO
-from flask import send_file
 
 CACHE_DIR = "./cache/"
 if not os.path.exists(CACHE_DIR):
@@ -23,6 +22,13 @@ def getImageUrlForGameId(game_id: int):
         str: Image url
     """
     return f"https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
+
+
+def bytesFromPilImage(pil_img: Image):
+    img_io = BytesIO()
+    pil_img.save(img_io, 'JPEG', quality=70)
+    img_io.seek(0)
+    return img_io
 
 
 def getImageForGameId(game_id: int):
@@ -80,10 +86,3 @@ def makeCollage(games, image_size):
         y = row * THUMB_HEIGHT
         collage.paste(image, (x, y))
     return collage
-
-
-def serve_pil_image(pil_img: Image):
-    img_io = BytesIO()
-    pil_img.save(img_io, 'JPEG', quality=70)
-    img_io.seek(0)
-    return send_file(img_io, mimetype='image/jpeg')

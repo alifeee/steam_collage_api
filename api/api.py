@@ -1,7 +1,7 @@
 # Web api using Flask, to return simple data
 from flask import Flask, request, send_file
 from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId
-from images import makeCollage, serve_pil_image
+from images import makeCollage, bytesFromPilImage
 from markupsafe import escape
 import os
 from dotenv import load_dotenv
@@ -47,7 +47,8 @@ def get():
         return f"Error: Invalid sort option: {sort}", 500
 
     collage = makeCollage(games, (columns, rows))
-    return serve_pil_image(collage)
+    collage_bytes = bytesFromPilImage(collage)
+    return send_file(collage_bytes, mimetype="image/png")
 
 
 if __name__ == '__main__':
