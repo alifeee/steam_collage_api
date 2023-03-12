@@ -66,6 +66,14 @@ docker run -p 5000:5000 -e API_KEY=8917981789178 alifeee/steamcollageapi
 docker push alifeee/steamcollageapi
 ```
 
+## Thunder Client
+
+Thunder client is a VS Code extension which allows you to make HTTP requests. It is useful for testing the API.
+
+### Testing
+
+Some tests are included in the `tests` collection. These can be run by using the `Run All` button in the top right of collection.
+
 ## Deploying to Kamatera (remote)
 
 ### Connect to Kamatera

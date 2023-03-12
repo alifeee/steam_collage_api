@@ -4,11 +4,11 @@
     "colId": "b5e1bc07-f3f0-4e48-9fba-7c369a4f8d05",
     "containerId": "",
     "name": "steamcollage/games",
-    "url": "http://{{host}}:5000/steamcollage/games?id=alifeee&rows=8&cols=10&sort=recent",
+    "url": "http://{{host}}:5000/steamcollage/games?id=alifeee&rows=8&cols=10&sort=playtime",
     "method": "GET",
     "sortNum": 80000,
     "created": "2023-03-06T16:43:51.491Z",
-    "modified": "2023-03-12T15:22:56.256Z",
+    "modified": "2023-03-12T15:52:43.056Z",
     "headers": [],
     "params": [
       {
@@ -28,7 +28,7 @@
       },
       {
         "name": "sort",
-        "value": "recent",
+        "value": "playtime",
         "isPath": false
       }
     ],
@@ -201,5 +201,188 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "f48be6b0-9d5e-490d-b8a7-0a3628a70f6f",
+    "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
+    "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
+    "name": "exists, private",
+    "url": "http://localhost:5000/steamcollage/verifyuser?id=john",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-03-12T15:40:14.308Z",
+    "modified": "2023-03-12T15:42:12.559Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "john",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "{\"exists\":true,\"private\":true}"
+      }
+    ]
+  },
+  {
+    "_id": "9e718b87-b356-4fdb-9e3b-7b6f058128ea",
+    "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
+    "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
+    "name": "exists, public",
+    "url": "http://localhost:5000/steamcollage/verifyuser?id=alifeee",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-12T15:42:46.758Z",
+    "modified": "2023-03-12T15:44:22.801Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "alifeee",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "{\"exists\":true,\"private\":false}"
+      }
+    ]
+  },
+  {
+    "_id": "4a53378d-2735-4bde-952d-d3d235e2ccf8",
+    "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
+    "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
+    "name": "does not exist, vanity url",
+    "url": "http://localhost:5000/steamcollage/verifyuser?id=11111111111111111",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-12T15:44:39.487Z",
+    "modified": "2023-03-12T15:45:38.692Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "11111111111111111",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "{\"exists\":false}"
+      }
+    ]
+  },
+  {
+    "_id": "b3b2ebe4-a322-4f06-99a5-72256b06be3c",
+    "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
+    "containerId": "8e5360d7-3718-4dd9-88e9-7df721401097",
+    "name": "does not exist, steamID",
+    "url": "http://localhost:5000/steamcollage/verifyuser?id=uahwfuihwaufhuwahifjwahfwa",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-03-12T15:45:24.468Z",
+    "modified": "2023-03-12T15:45:24.468Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "uahwfuihwaufhuwahifjwahfwa",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "{\"exists\":false}"
+      }
+    ]
+  },
+  {
+    "_id": "bdc24fc1-1934-4f1d-bb27-b2f07ee1d911",
+    "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
+    "containerId": "",
+    "name": "alive",
+    "url": "http://localhost:5000/steamcollage/alive",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-12T15:46:12.855Z",
+    "modified": "2023-03-12T15:46:34.055Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "Alive"
+      }
+    ]
+  },
+  {
+    "_id": "8a2b6004-f545-4bbc-8857-f8b4173353b2",
+    "colId": "ee8c2fdd-b115-43f0-82a8-62fcfb773b36",
+    "containerId": "",
+    "name": "games",
+    "url": "http://{{host}}:5000/steamcollage/games?id=alifeee&rows=2&cols=2&sort=playtime",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-03-12T15:47:10.191Z",
+    "modified": "2023-03-12T15:54:47.421Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "alifeee",
+        "isPath": false
+      },
+      {
+        "name": "rows",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "cols",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "sort",
+        "value": "playtime",
+        "isPath": false
+      }
+    ],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "Content-Type",
+        "custom": "",
+        "action": "equal",
+        "value": "image/jpeg"
+      },
+      {
+        "type": "Content-Length",
+        "custom": "",
+        "action": "equal",
+        "value": "72332"
+      }
+    ]
   }
 ]
