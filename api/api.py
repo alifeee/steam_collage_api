@@ -80,7 +80,7 @@ def get():
 
     collage = makeCollage(games, (columns, rows))
     collage_bytes = bytesFromPilImage(collage)
-    return send_file(collage_bytes, mimetype="image/png")
+    return send_file(collage_bytes, mimetype="image/jpeg")
 
 
 if __name__ == '__main__':
