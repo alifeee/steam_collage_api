@@ -19,6 +19,11 @@ app = Flask(__name__)
 API_KEY = os.environ["API_KEY"]
 
 
+@app.route('/steamcollage/alive')
+def alive():
+    return "Alive"
+
+
 @app.route('/steamcollage/isLibraryPrivate')
 def getPrivate():
     profile_string = request.args.get('id')
