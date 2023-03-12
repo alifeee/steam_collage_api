@@ -144,3 +144,15 @@ curl http://localhost:5000/steamcollage/isLibraryPrivate?id=alifeee
   "private": false
 }
 ```
+
+### GET `/steamcollage/alive`
+
+Returns "Alive" if the server is running.
+
+```bash
+curl http://localhost:5000/steamcollage/alive
+```
+
+```text
+"Alive"
+```
