@@ -2,8 +2,8 @@
   {
     "_id": "15dd322e-ace9-444c-90d7-d5bd2531d04e",
     "name": "steam",
-    "default": true,
-    "sortNum": 10000,
+    "default": false,
+    "sortNum": 15000,
     "created": "2023-03-06T16:44:14.097Z",
     "modified": "2023-03-06T16:44:14.097Z",
     "data": [
@@ -53,6 +53,20 @@
       {
         "name": "host",
         "value": "127.0.0.1"
+      }
+    ]
+  },
+  {
+    "_id": "1c586ed3-5b55-4e1e-8ec1-3026a43eb417",
+    "name": "kamatera",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-03-12T21:03:52.764Z",
+    "modified": "2023-03-12T21:03:52.764Z",
+    "data": [
+      {
+        "name": "host",
+        "value": "45.91.169.110"
       }
     ]
   }
