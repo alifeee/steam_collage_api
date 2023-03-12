@@ -197,5 +197,25 @@
       }
     ],
     "tests": []
+  },
+  {
+    "_id": "1b49326c-16eb-4a1e-9b94-7f65b1dfe9f7",
+    "colId": "b5e1bc07-f3f0-4e48-9fba-7c369a4f8d05",
+    "containerId": "",
+    "name": "localhost/steamcollage/isLibraryPrivate",
+    "url": "http://localhost:5000/steamcollage/isLibraryPrivate?id=james",
+    "method": "GET",
+    "sortNum": 85000,
+    "created": "2023-03-12T14:07:43.139Z",
+    "modified": "2023-03-12T14:08:15.696Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "james",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]

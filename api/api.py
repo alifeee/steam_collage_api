@@ -19,6 +19,29 @@ app = Flask(__name__)
 API_KEY = os.environ["API_KEY"]
 
 
+@app.route('/steamcollage/isLibraryPrivate')
+def getPrivate():
+    profile_string = request.args.get('id')
+    if isVanityUrl(profile_string):
+        try:
+            profile_id = get64BitFromVanityUrl(API_KEY, profile_string)
+        except Exception as e:
+            return f"Error: {e}", 500
+    else:
+        profile_id = profile_string
+
+    try:
+        games, game_count = getGamesFromSteamId(API_KEY, profile_id)
+    except Exception as e:
+        print(str(e))
+        if "No games in response" in str(e):
+            return {"private": True}
+        else:
+            return f"Error: {e}", 500
+
+    return {"private": False}
+
+
 @app.route('/steamcollage/games')
 def get():
     profile_string = request.args.get('id')
