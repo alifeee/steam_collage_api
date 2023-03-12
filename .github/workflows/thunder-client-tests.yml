@@ -32,7 +32,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run tests
       run: |
-        python ./api/api.py &
+        python ./api/api.py debug &
         sleep 2
         tc --env test --col tests --stop-on-fail --report html,xml
         kill -9 `lsof -i:5000 -t`
