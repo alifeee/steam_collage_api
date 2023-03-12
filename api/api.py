@@ -4,6 +4,7 @@ from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId
 from images import makeCollage, bytesFromPilImage
 from markupsafe import escape
 import os
+import sys
 from dotenv import load_dotenv
 from waitress import serve
 import logging
@@ -52,5 +53,7 @@ def get():
 
 
 if __name__ == '__main__':
-    # app.run(debug=True, host="0.0.0.0")
-    serve(app, host="0.0.0.0", port=5000)
+    if len(sys.argv) > 1 and sys.argv[1] == "debug":
+        app.run(debug=True, host="0.0.0.0")
+    else:
+        serve(app, host="0.0.0.0", port=5000)
