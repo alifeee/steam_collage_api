@@ -52,7 +52,7 @@
     "data": [
       {
         "name": "host",
-        "value": "0.0.0.0"
+        "value": "localhost"
       }
     ]
   }
