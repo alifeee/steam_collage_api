@@ -36,6 +36,8 @@ jobs:
         sleep 2
         tc --env test --col tests --stop-on-fail --report html,xml
         kill -9 `lsof -i:5000 -t`
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
     - name: Output the run Details
       uses: actions/upload-artifact@v3
       with:
