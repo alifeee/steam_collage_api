@@ -5,6 +5,7 @@ env
 
 # thunder client
 thunder-tests/thunderActivity.json
+thunder-reports
 
 # cache
 cache
