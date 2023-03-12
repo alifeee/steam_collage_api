@@ -4,13 +4,14 @@ An API to generate a collage of games from a Steam profile. Python is used to ge
 
 ![Collage image](./images/alifeee.png)
 
-## Locations
+## URLs
 
-| Location | URL |
+| Service | URL |
 | -------- | --- |
 | Docker Hub | [alifeee/steamcollageapi](https://hub.docker.com/repository/docker/alifeee/steamcollageapi) |
 | GitHub | [alifeee/steam_collage](https://github.com/alifeee/steam_collage/) |
-| Kamatera | [alifeee](https://console.kamatera.com/) - 45.91.169.110 |
+| Kamatera Console | [alifeee](https://console.kamatera.com/) |
+| Kamatera Server | 45.91.169.110 |
 
 ## API Key
 
@@ -107,7 +108,41 @@ docker start <container id>
 
 ## GitHub actions
 
-### RSA key
+### `python-app.yml`: Python testing
+
+This workflow:
+
+1. Checks out the repository
+2. Sets up Python 3.10
+3. Installs dependencies
+4. Runs linting
+5. Runs tests
+
+#### Secrets
+
+None.
+
+### `docker-image.yml`: Docker
+
+This workflow:
+
+1. Checks out the repository
+2. Builds the Docker image
+3. Pushes the Docker image to Docker Hub
+4. Deploys the Docker image to Kamatera
+
+#### Secrets used for Docker and Kamatera
+
+| Name | Description |
+| ---- | ----------- |
+| `API_KEY` | Steam API key - see [above](#api-key). |
+| `DOCKERHUB_USERNAME` | Docker Hub username. |
+| `DOCKERHUB_TOKEN` | [Docker Hub access token](https://docs.docker.com/docker-hub/access-tokens/). |
+| `HOST` | IP address of the Kamatera server |
+| `USERNAME` | Username for the Kamatera server |
+| `KEY` | RSA key* for the Kamatera server |
+
+##### *RSA key
 
 See [rsa_ssh_key_setup.md](./rsa_ssh_key_setup.md) for details on setting up the RSA key.
 
