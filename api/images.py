@@ -48,6 +48,8 @@ def getImageForGameId(game_id: int):
     if os.path.exists(img_path):
         return Image.open(img_path)
     response = requests.get(url)
+    if response.status_code == 404:
+        raise ValueError(f"404: Image not found for game id: {game_id}.")
     try:
         img_bytes = BytesIO(response.content)
         img = Image.open(img_bytes)
