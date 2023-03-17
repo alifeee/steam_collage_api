@@ -1,0 +1,4 @@
+[run]
+omit =
+  # omit "**_test.py" files
+  *_test.py

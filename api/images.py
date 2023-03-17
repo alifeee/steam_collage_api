@@ -11,6 +11,9 @@ CACHE_DIR = "./cache/"
 if not os.path.exists(CACHE_DIR):
     os.mkdir(CACHE_DIR)
 
+THUMB_WIDTH = 460
+THUMB_HEIGHT = 215
+
 
 def getImageUrlForGameId(game_id: int):
     """Get image url for game id
@@ -48,6 +51,8 @@ def getImageForGameId(game_id: int):
     if os.path.exists(img_path):
         return Image.open(img_path)
     response = requests.get(url)
+    if response.status_code == 404:
+        raise ValueError(f"404: Image not found for game id: {game_id}.")
     try:
         img_bytes = BytesIO(response.content)
         img = Image.open(img_bytes)
@@ -58,32 +63,45 @@ def getImageForGameId(game_id: int):
     return img
 
 
-def makeCollage(games, image_size):
-    max_images = image_size[0] * image_size[1]
+def makeCollage(games, columns_rows):
+    columns, rows = columns_rows
+
+    MAX_WIDTH = 3900
+    MAX_HEIGHT = 2200
+    thumb_scaled_width = min(THUMB_WIDTH, MAX_WIDTH // columns)
+    thumb_scaled_height = min(THUMB_HEIGHT, MAX_HEIGHT // rows)
+
+    old_aspect_ratio = THUMB_WIDTH / THUMB_HEIGHT  # ~ 2.1
+    new_aspect_ratio = thumb_scaled_width / thumb_scaled_height
+    if new_aspect_ratio > old_aspect_ratio:
+        thumb_scaled_width = int(thumb_scaled_height * old_aspect_ratio)
+    else:
+        thumb_scaled_height = int(thumb_scaled_width / old_aspect_ratio)
+
+    width_px = thumb_scaled_width * columns
+    height_px = thumb_scaled_height * rows
+
     images = []
     extra = 0
+    max_images = columns * rows
+
     for (index, game) in tqdm(enumerate(games), total=min(max_images, len(games))):
         if index >= max_images + extra:
             break
         try:
-            images.append(getImageForGameId(game["appid"]))
-        except:
+            img = getImageForGameId(game["appid"])
+            img = img.resize((thumb_scaled_width, thumb_scaled_height))
+            images.append(img)
+        except Exception as e:
             print(f"Error getting image for game: {game['name']}")
+            print(e)
             extra += 1
 
-    THUMB_WIDTH = 460
-    THUMB_HEIGHT = 215
-
-    total_columnolumns = image_size[0]
-    total_rows = image_size[1]
-    collage_width = total_columnolumns * THUMB_WIDTH
-    collage_height = total_rows * THUMB_HEIGHT
-
-    collage = Image.new("RGB", (collage_width, collage_height))
+    collage = Image.new("RGB", (width_px, height_px))
     for i, image in enumerate(images):
-        row = i // total_columnolumns
-        col = i % total_columnolumns
-        x = col * THUMB_WIDTH
-        y = row * THUMB_HEIGHT
+        row = i // columns
+        col = i % columns
+        x = col * thumb_scaled_width
+        y = row * thumb_scaled_height
         collage.paste(image, (x, y))
     return collage

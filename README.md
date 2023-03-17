@@ -45,7 +45,7 @@ pip freeze > requirements.txt
 ### Run tests
 
 ```bash
-ptw
+ptw -- --cov=api
 ```
 
 ### Run server locally
