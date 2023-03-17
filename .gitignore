@@ -12,3 +12,6 @@ cache
 
 # secrets
 .env
+
+# testing
+.coverage
