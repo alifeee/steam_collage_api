@@ -78,8 +78,8 @@ def makeCollage(games, columns_rows):
     else:
         thumb_scaled_height = int(thumb_scaled_width / old_aspect_ratio)
 
-    width_px = thumb_scaled_width * columns
-    height_px = thumb_scaled_height * rows
+    width_px = max(thumb_scaled_width * columns, 1)
+    height_px = max(thumb_scaled_height * rows, 1)
 
     images = []
     extra = 0
