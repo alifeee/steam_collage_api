@@ -20,7 +20,6 @@ THUMB_WIDTH = 460
 THUMB_HEIGHT = 215
 
 
-
 def getImageUrlForGameId(game_id: int):
     """Get image url for game id
 

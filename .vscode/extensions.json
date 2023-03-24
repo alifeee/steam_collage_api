@@ -3,6 +3,7 @@
     "rangav.vscode-thunder-client",
     "ms-python.python",
     "nautigsam.go-to-test",
-    "njpwerner.autodocstring"
+    "njpwerner.autodocstring",
+    "ms-python.vscode-pylance"
   ]
 }
