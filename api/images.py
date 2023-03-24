@@ -6,13 +6,19 @@ from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from tqdm import tqdm
 from io import BytesIO
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DO_CACHE = os.environ.get("DO_CACHE", "False") == "True"
 
 CACHE_DIR = "./cache/"
-if not os.path.exists(CACHE_DIR):
+if DO_CACHE and not os.path.exists(CACHE_DIR):
     os.mkdir(CACHE_DIR)
 
 THUMB_WIDTH = 460
 THUMB_HEIGHT = 215
+
 
 
 def getImageUrlForGameId(game_id: int):
@@ -47,9 +53,10 @@ def getImageForGameId(game_id: int):
         Image: Image (PIL)
     """
     url = getImageUrlForGameId(game_id)
-    img_path = CACHE_DIR + str(game_id) + ".jpg"
-    if os.path.exists(img_path):
-        return Image.open(img_path)
+    if DO_CACHE:
+        img_path = CACHE_DIR + str(game_id) + ".jpg"
+        if os.path.exists(img_path):
+            return Image.open(img_path)
     response = requests.get(url)
     if response.status_code == 404:
         raise ValueError(f"404: Image not found for game id: {game_id}.")
@@ -59,7 +66,8 @@ def getImageForGameId(game_id: int):
     except Exception as e:
         raise ValueError(
             f"Error opening image for game id: {game_id}. Error: {e}")
-    img.save(img_path)
+    if DO_CACHE:
+        img.save(img_path)
     return img
 
 

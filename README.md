@@ -13,14 +13,24 @@ An API to generate a collage of games from a Steam profile. Python is used to ge
 | Kamatera Console | [alifeee](https://console.kamatera.com/) |
 | Kamatera Server | 45.91.169.110 |
 
-## API Key
+## Environment
 
-A steam API key must be placed in the `.env` file in the root directory, or exposed to the environment via the terminal. Keys can be obtained from [Steam](https://steamcommunity.com/dev/apikey).
+A .env file is used to store environment variables. The following variables are used:
+
+| Name | Description |
+| ---- | ----------- |
+| `API_KEY` | Steam API key - see [below](#api-key). |
+| `DO_CACHE` | Whether to cache the game thumbnails. Note that this increases the memory usage of the server. |
 
 ```text
 # .env
 API_KEY=8917981789178
+DO_CACHE=True
 ```
+
+### API Key
+
+A steam API key must be placed in the `.env` file in the root directory, or exposed to the environment via the terminal. Keys can be obtained from [Steam](https://steamcommunity.com/dev/apikey).
 
 ## Commands
 
