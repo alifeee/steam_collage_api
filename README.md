@@ -190,7 +190,7 @@ Returns a boolean indicating whether a given steam account exists, and whether i
 | `id` | `string` | Steam ID or vanity URL of the user, e.g., alifeee |
 
 ```bash
-wget http://localhost:5000/steamcollage/isLibraryPrivate?id=alifeee
+wget http://localhost:5000/steamcollage/verifyuser?id=alifeee
 ```
 
 ```json
