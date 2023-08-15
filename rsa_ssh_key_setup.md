@@ -12,7 +12,7 @@ This describes the process of setting up a new user on a server with an RSA key.
 ## Server actions
 
 ```bash
-ssh root@45.91.169.110
+ssh root@server.alifeee.co.uk
 ```
 
 ### Make new user
@@ -46,11 +46,11 @@ cat .ssh/id_ed25519.pub > .ssh/authorized_keys
 ### Get ssh private key
 
 ```bash
-scp root@45.91.169.110:/home/deploy/.ssh/id_ed25519 C:\Users\alifeee\.ssh
+scp root@server.alifeee.co.uk:/home/deploy/.ssh/id_ed25519 C:\Users\alifeee\.ssh
 ```
 
 ### login with key (password not required)
 
 ```bash
-ssh -i C:\Users\alifeee\.ssh\id_ed25519 deploy@45.91.169.110
+ssh -i C:\Users\alifeee\.ssh\id_ed25519 deploy@server.alifeee.co.uk
 ```
