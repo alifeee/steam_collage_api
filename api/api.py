@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from waitress import serve
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(message)s")
 
 
 load_dotenv()
@@ -19,14 +19,19 @@ app = Flask(__name__)
 API_KEY = os.environ["API_KEY"]
 
 
-@app.route('/steamcollage/alive')
+@app.route("/steamcollage/alive")
 def alive():
     return "Alive"
 
 
-@app.route('/steamcollage/verifyuser')
+@app.route("/steamcollage/alive_img")
+def alive_img():
+    return send_file("sheep.png", mimetype="image/png")
+
+
+@app.route("/steamcollage/verifyuser")
 def verifyuser():
-    profile_string = request.args.get('id')
+    profile_string = request.args.get("id")
     if isVanityUrl(profile_string):
         try:
             profile_id = get64BitFromVanityUrl(API_KEY, profile_string)
@@ -50,12 +55,12 @@ def verifyuser():
     return {"exists": True, "private": False}
 
 
-@app.route('/steamcollage/games')
+@app.route("/steamcollage/games")
 def games():
-    profile_string = request.args.get('id')
-    columns = request.args.get('cols', default=8, type=int)
-    rows = request.args.get('rows', default=9, type=int)
-    sort = request.args.get('sort', default="playtime", type=str)
+    profile_string = request.args.get("id")
+    columns = request.args.get("cols", default=8, type=int)
+    rows = request.args.get("rows", default=9, type=int)
+    sort = request.args.get("sort", default="playtime", type=str)
     if isVanityUrl(profile_string):
         try:
             profile_id = get64BitFromVanityUrl(API_KEY, profile_string)
@@ -83,7 +88,7 @@ def games():
     return send_file(collage_bytes, mimetype="image/jpeg")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "debug":
         app.run(debug=True, host="0.0.0.0")
     else:

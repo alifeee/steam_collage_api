@@ -211,3 +211,13 @@ wget http://localhost:5000/steamcollage/alive
 ```text
 "Alive"
 ```
+
+### GET `/steamcollage/alive_img`
+
+Returns an image if the server is running.
+
+```bash
+wget http://localhost:5000/steamcollage/alive_img
+```
+
+![Lovely picture of a sheep](./sheep.png)
