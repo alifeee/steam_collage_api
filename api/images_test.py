@@ -3,24 +3,25 @@ import unittest
 import responses
 from PIL import Image
 from parameterized import parameterized
-import os
 
 
 class TestGetImageUrlForGameId(unittest.TestCase):
     def setUp(self):
-        self.baseurl = "https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
+        self.baseurl = (
+            "https://cdn.cloudflare.steamstatic.com/steam/apps/{game_id}/header.jpg"
+        )
 
     def test_getImageUrlForGameId(self):
         game_id = 10
         self.assertEqual(
-            images.getImageUrlForGameId(game_id),
-            self.baseurl.format(game_id=game_id))
+            images.getImageUrlForGameId(game_id), self.baseurl.format(game_id=game_id)
+        )
 
     def test_getImageUrlForGameId2(self):
         game_id = 205560
         self.assertEqual(
-            images.getImageUrlForGameId(game_id),
-            self.baseurl.format(game_id=game_id))
+            images.getImageUrlForGameId(game_id), self.baseurl.format(game_id=game_id)
+        )
 
 
 test_image_folder = "api/test_images/"
@@ -31,10 +32,7 @@ game_ids = [
     "226100",
     "247000",
 ]
-game_images = [
-    Image.open(test_image_folder + game_id + ".jpg")
-    for game_id in game_ids
-]
+game_images = [Image.open(test_image_folder + game_id + ".jpg") for game_id in game_ids]
 
 
 class TestBytesFromPilImage(unittest.TestCase):

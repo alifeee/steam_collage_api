@@ -1,9 +1,10 @@
 import sys
 import os
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from tqdm import tqdm
 from steam_api import getGamesFromSteamId, get64BitFromVanityUrl
 from images import getImageForGameId
-from tqdm import tqdm
 
 
 with open("api_key.txt", "r") as f:
@@ -16,7 +17,7 @@ sizes = {}
 for game in tqdm(games, desc="Getting image sizes", total=len(games), unit="images"):
     try:
         image = getImageForGameId(game["appid"])
-    except:
+    except Exception:
         continue
     if image.size in sizes:
         sizes[image.size].append(game["name"])

@@ -1,11 +1,10 @@
 # Grabs image from url, or from cache if it exists
 
 import os
+from io import BytesIO
 import requests
-from io import BytesIO
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 from tqdm import tqdm
-from io import BytesIO
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -34,7 +33,7 @@ def getImageUrlForGameId(game_id: int):
 
 def bytesFromPilImage(pil_img: Image):
     img_io = BytesIO()
-    pil_img.save(img_io, 'JPEG', quality=70)
+    pil_img.save(img_io, "JPEG", quality=70)
     img_io.seek(0)
     return img_io
 
@@ -63,8 +62,7 @@ def getImageForGameId(game_id: int):
         img_bytes = BytesIO(response.content)
         img = Image.open(img_bytes)
     except Exception as e:
-        raise ValueError(
-            f"Error opening image for game id: {game_id}. Error: {e}")
+        raise ValueError(f"Error opening image for game id: {game_id}. Error: {e}")
     if DO_CACHE:
         img.save(img_path)
     return img
@@ -92,7 +90,7 @@ def makeCollage(games, columns_rows):
     extra = 0
     max_images = columns * rows
 
-    for (index, game) in tqdm(enumerate(games), total=min(max_images, len(games))):
+    for index, game in tqdm(enumerate(games), total=min(max_images, len(games))):
         if index >= max_images + extra:
             break
         try:

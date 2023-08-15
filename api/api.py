@@ -2,7 +2,6 @@
 from flask import Flask, request, send_file
 from steam_api import isVanityUrl, get64BitFromVanityUrl, getGamesFromSteamId
 from images import makeCollage, bytesFromPilImage
-from markupsafe import escape
 import os
 import sys
 from dotenv import load_dotenv

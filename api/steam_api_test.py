@@ -1,6 +1,7 @@
 import steam_api
 import unittest
 import responses
+
 # requests mocking: https://github.com/getsentry/responses
 from responses import matchers
 
@@ -32,12 +33,8 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
         responses.get(
             self.baseurl,
             match=[matchers.query_param_matcher(params)],
-            json={
-                "response": {
-                    "success": 1,
-                    "steamid": "76561008099426919"
-                }
-            })
+            json={"response": {"success": 1, "steamid": "76561008099426919"}},
+        )
         profile_id = steam_api.get64BitFromVanityUrl(API_KEY, "alifeee")
         self.assertEqual(profile_id, "76561008099426919")
 
@@ -48,12 +45,8 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
         responses.get(
             self.baseurl,
             match=[matchers.query_param_matcher(params)],
-            json={
-                "response": {
-                    "success": 42,
-                    "message": "No match"
-                }
-            })
+            json={"response": {"success": 42, "message": "No match"}},
+        )
         with self.assertRaises(ValueError):
             steam_api.get64BitFromVanityUrl(API_KEY, "alifeee")
 
@@ -63,9 +56,8 @@ class TestGet64BitFromVanityUrl(unittest.TestCase):
         params = self.baseparams.copy()
         params["vanityurl"] = ""
         responses.get(
-            self.baseurl,
-            match=[matchers.query_param_matcher(params)],
-            status=400)
+            self.baseurl, match=[matchers.query_param_matcher(params)], status=400
+        )
         with self.assertRaises(ValueError):
             steam_api.get64BitFromVanityUrl(API_KEY, "")
 
@@ -77,7 +69,7 @@ class TestGetGamesFromSteamId(unittest.TestCase):
             "key": API_KEY,
             "format": "json",
             "include_appinfo": "true",
-            "include_played_free_games": "true"
+            "include_played_free_games": "true",
         }
         self.games = [
             {
@@ -99,7 +91,7 @@ class TestGetGamesFromSteamId(unittest.TestCase):
                 "playtime_mac_forever": 0,
                 "playtime_linux_forever": 0,
                 "rtime_last_played": 0,
-            }
+            },
         ]
 
     @responses.activate
@@ -109,14 +101,9 @@ class TestGetGamesFromSteamId(unittest.TestCase):
         responses.get(
             self.baseurl,
             match=[matchers.query_param_matcher(params)],
-            json={
-                "response": {
-                    "game_count": 2,
-                    "games": self.games
-                }
-            })
-        games, game_count = steam_api.getGamesFromSteamId(
-            API_KEY, "76561008099426919")
+            json={"response": {"game_count": 2, "games": self.games}},
+        )
+        games, game_count = steam_api.getGamesFromSteamId(API_KEY, "76561008099426919")
         self.assertEqual(games, self.games)
         self.assertEqual(game_count, 2)
 
@@ -125,9 +112,8 @@ class TestGetGamesFromSteamId(unittest.TestCase):
         params = self.baseparams.copy()
         params["steamid"] = ""
         responses.get(
-            self.baseurl,
-            match=[matchers.query_param_matcher(params)],
-            status=500)
+            self.baseurl, match=[matchers.query_param_matcher(params)], status=500
+        )
         with self.assertRaises(ValueError):
             steam_api.getGamesFromSteamId(API_KEY, "")
 
@@ -136,10 +122,14 @@ class TestGetGamesFromSteamId(unittest.TestCase):
         params = self.baseparams.copy()
         params["steamid"] = "invalid"
         responses.get(
-            self.baseurl,
-            match=[matchers.query_param_matcher(params)],
-            status=500)
+            self.baseurl, match=[matchers.query_param_matcher(params)], status=500
+        )
         with self.assertRaises(ValueError) as e:
             steam_api.getGamesFromSteamId(API_KEY, "invalid")
-        self.assertEqual(str(
-            e.exception), f"steam_id is a vanity url: {params['steamid']}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id")
+        self.assertEqual(
+            str(e.exception),
+            f"""
+            steam_id is a vanity url: {params['steamid']}.
+            Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id
+            """,
+        )

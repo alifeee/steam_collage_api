@@ -11,7 +11,7 @@ def isVanityUrl(profile_string: str):
     Returns:
         bool: True if profile string is a vanity url
     """
-    return re.match(r'^[0-9]{17}$', profile_string) is None
+    return re.match(r"^[0-9]{17}$", profile_string) is None
 
 
 def get64BitFromVanityUrl(API_KEY: str, vanity_url: str):
@@ -29,10 +29,7 @@ def get64BitFromVanityUrl(API_KEY: str, vanity_url: str):
         str: 64 bit steam id
     """
     url = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/"
-    params = {
-        "key": API_KEY,
-        "vanityurl": vanity_url
-    }
+    params = {"key": API_KEY, "vanityurl": vanity_url}
     r = requests.get(url, params=params)
     if r.status_code != 200:
         raise ValueError(f"Request failed with status code {r.status_code}")
@@ -44,7 +41,7 @@ def get64BitFromVanityUrl(API_KEY: str, vanity_url: str):
         raise ValueError(f"No response in json: {json}")
     response = json["response"]
     if "success" in response and response["success"] != 1:
-        raise ValueError(f"Vanity url conversion failed.")
+        raise ValueError("Vanity url conversion failed.")
     if "steamid" not in response:
         raise ValueError(f"No steamid in response: {response}")
     return response["steamid"]
@@ -77,14 +74,15 @@ def getGamesFromSteamId(API_KEY: str, steam_id: str):
     """
     if isVanityUrl(steam_id):
         raise ValueError(
-            f"steam_id is a vanity url: {steam_id}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id")
+            f"steam_id is a vanity url: {steam_id}. Use get64BitFromVanityUrl to convert vanity url to 64 bit steam id"
+        )
     url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
     params = {
         "key": API_KEY,
         "steamid": steam_id,
         "format": "json",
         "include_appinfo": "true",
-        "include_played_free_games": "true"
+        "include_played_free_games": "true",
     }
     r = requests.get(url, params=params)
     if r.status_code != 200:
