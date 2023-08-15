@@ -221,3 +221,9 @@ wget http://localhost:5000/steamcollage/alive_img
 ```
 
 ![Lovely picture of a sheep](./sheep.png)
+
+## Alive check
+
+To check the API is alive, I use [Testfully] to poll the `/steamcollage/alive` endpoint every hour.
+
+[Testfully]: https://app.testfully.io
