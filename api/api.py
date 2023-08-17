@@ -92,6 +92,9 @@ def games():
     elif sort == "name":
         allgames.sort(key=lambda x: x["name"])
     elif sort == "recent":
+        # check if rtime_last_played is in all games
+        if not all("rtime_last_played" in game for game in allgames):
+            return send_file("validity_no-recent.png", mimetype="image/png")
         allgames.sort(key=lambda x: x["rtime_last_played"], reverse=True)
     else:
         return f"Error: Invalid sort option: {sort}", 500
