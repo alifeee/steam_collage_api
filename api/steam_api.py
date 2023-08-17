@@ -1,4 +1,7 @@
+import os
 import re
+import sys
+from dotenv import load_dotenv
 import requests
 
 
@@ -99,3 +102,17 @@ def getGamesFromSteamId(API_KEY: str, steam_id: str):
     if "game_count" not in response:
         raise ValueError(f"No game_count in response: {response}")
     return response["games"], response["game_count"]
+
+
+if __name__ == "__main__":
+    load_dotenv()
+    API_KEY = os.getenv("API_KEY")
+    USER = sys.argv[1]
+    if isVanityUrl(USER):
+        USER = get64BitFromVanityUrl(API_KEY, USER)
+
+    games, game_count = getGamesFromSteamId(API_KEY, USER)
+
+    print(f"Found {game_count} games for user {USER}")
+    for game in games:
+        print(game)
