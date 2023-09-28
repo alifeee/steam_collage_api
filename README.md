@@ -2,6 +2,10 @@
 
 An API to generate a collage of games from a Steam profile. Python is used to generate the image, which is served via an HTTP server using [Flask](https://flask.palletsprojects.com/en/2.2.x/). Hosted using [Kamatera](https://console.kamatera.com/).
 
+Give it a go! --> <https://alifeee.co.uk/steam_mosaic/>
+
+Blog post --> <https://blog.alifeee.co.uk/steam-collage-api/>
+
 ![Collage image](./images/alifeee.png)
 
 ## URLs
