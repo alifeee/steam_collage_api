@@ -15,7 +15,7 @@ Blog post --> <https://blog.alifeee.co.uk/steam-collage-api/>
 | Docker Hub | [alifeee/steamcollageapi](https://hub.docker.com/repository/docker/alifeee/steamcollageapi) |
 | GitHub | [alifeee/steam_collage](https://github.com/alifeee/steam_collage/) |
 | Kamatera Console | [alifeee](https://console.kamatera.com/) |
-| Kamatera Server | 45.91.169.110 |
+| Kamatera Server | http://server.alifeee.co.uk |
 
 ## Environment
 
