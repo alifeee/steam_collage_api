@@ -94,7 +94,7 @@ Some tests are included in the `tests` collection. These can be run by using the
 ### Connect to Kamatera
 
 ```bash
-ssh root@45.91.169.110
+ssh root@server.alifeee.co.uk
 > enter password
 ```
 
