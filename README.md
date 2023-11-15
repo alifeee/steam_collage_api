@@ -115,7 +115,7 @@ docker rm <container id>
 ### Run image
 
 ```bash
-docker create -p 5000:5000 -e API_KEY=8917981789178 alifeee/steamcollageapi
+docker create -p 5000:5000 -e API_KEY=8917981789178 --name steamcollageapi alifeee/steamcollageapi
 > get container id
 docker start <container id>
 ```
