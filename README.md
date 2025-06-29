@@ -120,6 +120,32 @@ docker create -d --restart unless-stopped -p 5000:5000 -e API_KEY=8917981789178 
 docker start <container id>
 ```
 
+## Docker compose
+
+First, create the user:
+
+```bash
+sudo useradd -r -s /bin/false steamcollage
+echo "user id: "$(cat /etc/passwd | grep "^steamcollage:" | awk -F':' '{print $3}')
+```
+
+```yml
+name: steam collage api
+services:
+    steamcollageapi:
+        environment:
+            - API_KEY=1B74FD1DD42E130B9C066CE658CB0270
+        container_name: steamcollageapi
+        ports:
+            - 5000:5000/tcp
+        restart: unless-stopped
+        image: alifeee/steamcollageapi
+# when user doesn't exist in container, user UID
+#        user: steamcollage
+        user: "994"
+        command: python ./api.py
+```
+
 ## GitHub actions
 
 ### `python-app.yml`: Python testing
